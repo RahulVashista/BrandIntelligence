@@ -8,6 +8,13 @@ services:
     build: ./backend
     command: celery -A app.workers.tasks worker --loglevel=info
     depends_on: [redis]
+  frontend:
+    build: ./frontend
+    command: npm run dev -- --host 0.0.0.0
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
   redis:
     image: redis:7
   postgres:
